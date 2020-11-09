@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="480" Width="400" Background="#A491D3">
     <Grid Height="430" VerticalAlignment="Top" Margin="10 10 ">
-        <TextBox x:Name="textField" Text="" Grid.ColumnSpan="5" FontSize="30px" Background="#C5DCA0" Margin="1 5" PreviewTextInput="textField_PreviewTextInput"></TextBox>
+        <TextBox x:Name="TextField" Text="" Grid.ColumnSpan="5" FontSize="30px" Background="#C5DCA0" Margin="1 5" PreviewTextInput="textField_PreviewTextInput" DataObject.Pasting="textField_Pasting"></TextBox>
 
         <!--Buttons Column 1-->
         <Button   Grid.Column="0" Grid.Row="1" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">1</Button>

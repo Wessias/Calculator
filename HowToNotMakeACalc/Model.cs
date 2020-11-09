@@ -8,11 +8,11 @@ namespace HowToNotMakeACalc
 
     class Model
     {
-        private Regex sc_AllowedInputs = new Regex("[0-9./=+*√(^)-]");
+        private Regex sc_allowedInputs = new Regex("[0-9./=+*√(^)-]");
 
         public bool IsTextAllowed(string text)
         {
-            return !sc_AllowedInputs.IsMatch(text);
+            return !sc_allowedInputs.IsMatch(text);
         }
     }
 }

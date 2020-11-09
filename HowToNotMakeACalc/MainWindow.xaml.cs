@@ -25,6 +25,8 @@ namespace HowToNotMakeACalc
             InitializeComponent();
         }
 
+        Model sc_model = new Model();
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -51,10 +53,10 @@ namespace HowToNotMakeACalc
                     case "√(":
                     case ".":
                     case "=":
-                        textField.Text += button.Content;
+                        TextField.Text += button.Content;
                         break;
                     case "Del":
-                        textField.Text = textField.Text.Remove(textField.Text.Length - 1);
+                        TextField.Text = TextField.Text.Remove(TextField.Text.Length - 1);
                         break;
                     case "Exe":
                         break;
@@ -65,10 +67,25 @@ namespace HowToNotMakeACalc
 
         }
 
-        private void textField_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void TextField_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Model model = new Model();
-            e.Handled = model.IsTextAllowed(e.Text);
+            e.Handled = sc_model.IsTextAllowed(e.Text);
+        }
+
+        private void TextField_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if (!sc_model.IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
         }
     }
 }
