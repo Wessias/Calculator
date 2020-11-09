@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HowToNotMakeACalc"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="400" Background="#A491D3">
+        Title="MainWindow" Height="480" Width="500" Background="#A491D3">
     <Grid Height="430" VerticalAlignment="Top" Margin="10 10 ">
-        <TextBox x:Name="TextField" Text="" Grid.ColumnSpan="5" FontSize="30px" Background="#C5DCA0" Margin="1 5" PreviewTextInput="OnTextInput" DataObject.Pasting="OnPaste"></TextBox>
+        <TextBox x:Name="TextField" Text="" Grid.ColumnSpan="5" FontSize="30px" Background="#C5DCA0" Margin="1 5" TextChanged="onChange"></TextBox>
 
         <!--Buttons Column 1-->
         <Button   Grid.Column="0" Grid.Row="1" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">1</Button>
@@ -19,12 +19,12 @@
 
         <!--Buttons Column 2-->
         <Button   Grid.Column="1" Grid.Row="1" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">2</Button>
-        <Button   Grid.Column="1" Grid.Row="2" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">6</Button>
+        <Button   Grid.Column="1" Grid.Row="2" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">5</Button>
         <Button   Grid.Column="1" Grid.Row="3" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">8</Button>
         <Button   Grid.Column="1" Grid.Row="4" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">0</Button>
 
         <!--Buttons Column 3-->
-        <Button   Grid.Column="2" Grid.Row="2" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">7</Button>
+        <Button   Grid.Column="2" Grid.Row="2" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">6</Button>
         <Button   Grid.Column="2" Grid.Row="1" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">3</Button>
         <Button   Grid.Column="2" Grid.Row="3" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">9</Button>
         <Button   Grid.Column="2" Grid.Row="4" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">(</Button>
@@ -38,7 +38,7 @@
         <Button   Grid.Column="0" Grid.Row="5" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">Del</Button>
 
         <!--Buttons Column 5-->
-        <Button   Grid.Column="3" Grid.Row="5" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click" Grid.ColumnSpan="2" >Exe</Button>
+        <Button   Grid.Column="3" Grid.Row="5" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click" Grid.ColumnSpan="2" x:Name="Exec">Exe</Button>
         <Button   Grid.Column="4" Grid.Row="4" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">-</Button>
         <Button   Grid.Column="4" Grid.Row="3" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">+</Button>
         <Button   Grid.Column="4" Grid.Row="2" FontSize="25px" Background="#818AA3" Margin="3 3" Click="Button_Click">/</Button>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -70,29 +71,18 @@ namespace HowToNotMakeACalc
 
         }
 
-        private void OnTextInput(object sender, TextCompositionEventArgs e)
+        private void onChange(object sender, TextChangedEventArgs e)
         {
-            e.Handled = sc_model.IsTextAllowed(e.Text);
-        }
-
-        private void OnPaste(object sender, DataObjectPastingEventArgs e)
-        {
-            if (e.DataObject.GetDataPresent(typeof(string)))
+            if (sc_model.IsTextAllowed(TextField.Text))
             {
-                string text = (string)e.DataObject.GetData(typeof(string));
-                if (sc_model.IsTextAllowed(text))
-                {
-                    e.Handled = true;
-                }
-                else
-                {
-                    e.CancelCommand();
-                }
+                MessageBox.Show("Invalid Input");
+                TextField.Text = "";
             }
             else
             {
-                    e.CancelCommand();  
+                e.Handled = true;
             }
+
         }
     }
 }
