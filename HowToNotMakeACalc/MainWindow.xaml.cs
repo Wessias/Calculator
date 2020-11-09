@@ -29,7 +29,8 @@ namespace HowToNotMakeACalc
         {
             if (sender is Button button)
             {
-                switch (button.Content) { 
+                switch (button.Content)
+                {
                     case "0":
                     case "1":
                     case "2":
@@ -40,8 +41,6 @@ namespace HowToNotMakeACalc
                     case "7":
                     case "8":
                     case "9":
-                    case "sin(":
-                    case "cos(":
                     case "(":
                     case ")":
                     case "+":
@@ -49,7 +48,7 @@ namespace HowToNotMakeACalc
                     case "/":
                     case "*":
                     case "^":
-                    case "sqrt(":
+                    case "√(":
                     case ".":
                     case "=":
                         textField.Text += button.Content;
@@ -64,6 +63,12 @@ namespace HowToNotMakeACalc
                 }
             }
 
+        }
+
+        private void textField_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Model model = new Model();
+            e.Handled = model.IsTextAllowed(e.Text);
         }
     }
 }
