@@ -29,7 +29,7 @@ namespace HowToNotMakeACalc
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button)
+            if (e.Source is Button button)
             {
                 switch (button.Content)
                 {
@@ -58,6 +58,9 @@ namespace HowToNotMakeACalc
                     case "Del":
                         TextField.Text = TextField.Text.Remove(TextField.Text.Length - 1);
                         break;
+                    case "Clear":
+                        TextField.Text = "";
+                        break;
                     case "Exe":
                         break;
                     default:
@@ -67,24 +70,28 @@ namespace HowToNotMakeACalc
 
         }
 
-        private void TextField_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void OnTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = sc_model.IsTextAllowed(e.Text);
         }
 
-        private void TextField_Pasting(object sender, DataObjectPastingEventArgs e)
+        private void OnPaste(object sender, DataObjectPastingEventArgs e)
         {
-            if (e.DataObject.GetDataPresent(typeof(String)))
+            if (e.DataObject.GetDataPresent(typeof(string)))
             {
-                String text = (String)e.DataObject.GetData(typeof(String));
-                if (!sc_model.IsTextAllowed(text))
+                string text = (string)e.DataObject.GetData(typeof(string));
+                if (sc_model.IsTextAllowed(text))
+                {
+                    e.Handled = true;
+                }
+                else
                 {
                     e.CancelCommand();
                 }
             }
             else
             {
-                e.CancelCommand();
+                    e.CancelCommand();  
             }
         }
     }

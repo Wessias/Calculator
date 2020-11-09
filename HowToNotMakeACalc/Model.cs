@@ -8,7 +8,7 @@ namespace HowToNotMakeACalc
 
     class Model
     {
-        private Regex sc_allowedInputs = new Regex("[0-9./=+*√(^)-]");
+        private readonly Regex sc_allowedInputs = new Regex("[0-9./=+*√(^)-]");
 
         public bool IsTextAllowed(string text)
         {
