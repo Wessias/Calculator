@@ -26,7 +26,7 @@ namespace HowToNotMakeACalc
             InitializeComponent();
         }
 
-        Model sc_model = new Model();
+        readonly Calculation sc_calc = new Calculation();
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -53,7 +53,6 @@ namespace HowToNotMakeACalc
                     case "^":
                     case "√(":
                     case ".":
-                    case "=":
                         TextField.Text += button.Content;
                         break;
                     case "Del":
@@ -62,7 +61,9 @@ namespace HowToNotMakeACalc
                     case "Clear":
                         TextField.Text = "";
                         break;
+                    case "=":
                     case "Exe":
+                        TextField.Text = sc_calc.EvaluateExpression(TextField.Text);
                         break;
                     default:
                         break;
@@ -71,9 +72,9 @@ namespace HowToNotMakeACalc
 
         }
 
-        private void onChange(object sender, TextChangedEventArgs e)
+        private void OnChange(object sender, TextChangedEventArgs e)
         {
-            if (sc_model.IsTextAllowed(TextField.Text))
+            if (sc_calc.IsTextAllowed(TextField.Text))
             {
                 MessageBox.Show("Invalid Input");
                 TextField.Text = "";
