@@ -52,12 +52,18 @@ namespace HowToNotMakeACalc
                     case "*":
                     case "^":
                     case "√":
-                    case ".":
+                    case ",":
                         TextField.Text += button.Content;
                         break;
                     case "Del":
+                        if (TextField.Text != "") { 
                         TextField.Text = TextField.Text.Remove(TextField.Text.Length - 1);
                         break;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     case "Clear":
                         TextField.Text = "";
                         break;
