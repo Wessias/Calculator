@@ -58,12 +58,13 @@ namespace HowToNotMakeACalc
 
             splitExpression = RemoveEmptyStringInList(splitExpression);
 
-            while (DoesListContainChar(splitExpression, '+') | DoesListContainChar(splitExpression, '-'))
+            while (DoesListContainChar(splitExpression, '+') | DoesListContainChar(splitExpression, '-') && splitExpression.Count != 1)
             {
                 splitExpression = EvaluateAdditionAndSubtraction(splitExpression);
             }
 
             splitExpression = RemoveEmptyStringInList(splitExpression);
+
             return splitExpression[0];
         }
 
@@ -284,11 +285,13 @@ namespace HowToNotMakeACalc
         }
 
         //Does the same thing as the other evaluate methods except with addition and subtraction.
+        //If the expression has more than 1 subtraction in a row it fugs up i.e a-a-a-a = 0. I.e 500-50-50=400 but 500-50-50-50=450
+        //If you write a negative sign as the first character it will fug up cause of the regex expression which will create a substring of it i.e -a will become {-}, {a} and crash. 
         public List<String> EvaluateAdditionAndSubtraction(List<String> splitExpression)
         {
             for (var i = 0; i < splitExpression.Count - 1; i++)
             {
-                if (splitExpression[i] == "+" | splitExpression[i] == "-")
+                if (splitExpression[i] == "-" | splitExpression[i] == "+" )
                 {
                     switch (splitExpression[i])
                     {
@@ -301,7 +304,7 @@ namespace HowToNotMakeACalc
                             var temp1 = sc_sub.Operation(Convert.ToDouble(splitExpression[i - 1]), Convert.ToDouble(splitExpression[i + 1]));
                             RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 1, 3);
                             splitExpression.Insert(i - 1, temp1.ToString());
-                            break;
+                            break;       
                         default:
                             break;
                     }
@@ -310,6 +313,16 @@ namespace HowToNotMakeACalc
             return splitExpression;
 
         }
+
+
+        public void test(List<String> list)
+        {
+            foreach(string item in list)
+            {
+                MessageBox.Show(item);
+            }
+        }
+
 
         //Uses a regular expression to split the expression whenever it matches the pattern and then converts it into a list of strings.
         public List<String> SplitExpressionOnNonNumber(string expression)

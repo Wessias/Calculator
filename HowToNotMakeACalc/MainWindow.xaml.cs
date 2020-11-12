@@ -69,8 +69,13 @@ namespace HowToNotMakeACalc
                         break;
                     case "=":
                     case "Exe":
+                        if (TextField.Text != "") { 
                         TextField.Text = sc_calc.EvaluateExpression(TextField.Text);
+                            break;
+                        }
+                        else { 
                         break;
+                        }
                     default:
                         break;
                 }
