@@ -87,7 +87,7 @@ namespace HowToNotMakeACalc
 
         public List<String> RemoveSetAmountOfElementsInListAtIndex(List<String> list, int startElement, int amountToRemove)
         {
-            list.RemoveRange(startElement, startElement + amountToRemove);
+            list.RemoveRange(startElement, amountToRemove);
             return list;
         }
 
@@ -106,43 +106,57 @@ namespace HowToNotMakeACalc
                                 ///+*√(^)-
                                 case "+":
                                     var temp =sc_add.Operation(Convert.ToDouble(splitExpression[i + 1]), Convert.ToDouble(splitExpression[i + 3]));
-                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, i + 4);
+                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, 5);
                                     splitExpression.Insert(i, temp.ToString());
                                 break;
                                 case "-":
                                     var temp1 =sc_sub.Operation(Convert.ToDouble(splitExpression[i + 1]), Convert.ToDouble(splitExpression[i + 3]));
-                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, i + 4);
+                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, 5);
                                     splitExpression.Insert(i, temp1.ToString());
                                 break;
                                 case "*":
                                     var temp2 =sc_mult.Operation(Convert.ToDouble(splitExpression[i + 1]), Convert.ToDouble(splitExpression[i + 3]));
-                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, i + 4);
+                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, 5);
                                     splitExpression.Insert(i, temp2.ToString());
                                 break;
                                 case "/":
                                     var temp3 = sc_div.Operation(Convert.ToDouble(splitExpression[i + 1]), Convert.ToDouble(splitExpression[i + 3]));
-                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, i + 4);
+                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, 5);
                                     splitExpression.Insert(i, temp3.ToString());
                                 break;
 
                                 case ")":
-                                    if (splitExpression[i - 1] == "√")
+
+                                if (splitExpression[i - 1] == "")
+                                {
+                                    switch (splitExpression[i - 2])
                                     {
-                                        var temp4 =sc_sqrt.Operation(Convert.ToDouble(splitExpression[i + 1]), (1 / 2));
-                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 1, i + 2);
-                                    splitExpression.Insert(i, temp4.ToString());
+                                        case "√":
+                                            var temp4 = sc_sqrt.Operation(Convert.ToDouble(splitExpression[i + 1]), (1 / 2));
+                                            RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 1, 3);
+                                            splitExpression.Insert(i, temp4.ToString());
+                                            return splitExpression;
+                                        case "^":
+                                            var temp5 = sc_expo.Operation(Convert.ToDouble(splitExpression[i - 2]), Convert.ToDouble(splitExpression[i + 1]));
+                                            RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 1, 3);
+                                            splitExpression.Insert(i, temp5.ToString());
+                                            return splitExpression;
+                                        case "+":
+                                        case "-":
+                                        case "/":
+                                            var temp6 = splitExpression[i + 1];
+                                            RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, 3);
+                                            splitExpression.Insert(i, temp6);
+                                            return splitExpression;
+                                        default:
+                                            break;
+
                                     }
-                                    else if (splitExpression[i - 1] == "^")
-                                    {
-                                        var temp5 = sc_expo.Operation(Convert.ToDouble(splitExpression[i - 2]), Convert.ToDouble(splitExpression[i+1]));
-                                        RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 1, i + 2);
-                                        splitExpression.Insert(i, temp5.ToString());
-                                    }
-                                    else if (splitExpression[i - 1 ] != "+" || splitExpression[i - 1] != "-" || splitExpression[i - 1] != "/")
-                                    {
-                                    var temp6 = splitExpression[i + 1];
-                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 1, i + 2);
-                                    splitExpression.Insert(i, temp6.ToString());
+                                }
+                                else {
+                                    var temp7 = splitExpression[i + 1];
+                                    RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, 3);
+                                    splitExpression.Insert(i, temp7.ToString());
                                     splitExpression.Insert(i, "*");
                                 }
                                 break;
