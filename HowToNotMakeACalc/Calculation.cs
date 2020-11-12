@@ -140,10 +140,11 @@ namespace HowToNotMakeACalc
                                     }
                                     else if (splitExpression[i - 1 ] != "+" || splitExpression[i - 1] != "-" || splitExpression[i - 1] != "/")
                                     {
-                                    var temp6 = sc_mult.Operation(Convert.ToDouble(splitExpression[i - 1]), Convert.ToDouble(splitExpression[i + 1]));
+                                    var temp6 = splitExpression[i + 1];
                                     RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 1, i + 2);
                                     splitExpression.Insert(i, temp6.ToString());
-                                    }
+                                    splitExpression.Insert(i, "*");
+                                }
                                 break;
                                 default:
                                 break;
