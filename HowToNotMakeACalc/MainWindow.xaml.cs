@@ -69,7 +69,12 @@ namespace HowToNotMakeACalc
                         break;
                     case "=":
                     case "Exe":
-                        if (TextField.Text != "") { 
+                        if (TextField.Text == "66")
+                        {
+                            TextField.Text = "Order Executed";
+                            break;
+                        }
+                        else if (TextField.Text != "") { 
                         TextField.Text = sc_calc.EvaluateExpression(TextField.Text);
                             break;
                         }
