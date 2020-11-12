@@ -9,7 +9,7 @@ namespace HowToNotMakeACalc
     class Operator
     {
 
-        public virtual BigInteger Operation(BigInteger num1, BigInteger num2)
+        public virtual double Operation(double num1, double num2)
         {
             return 0;
         }
