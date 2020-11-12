@@ -26,6 +26,7 @@ namespace HowToNotMakeACalc
             return sc_allowedInputs.IsMatch(text);
         }
 
+        //Pls no enter only 1 type of bracket or square root with no bracket/no number ;(
         public string EvaluateExpression(string expression)
         {
             var splitExpression = SplitExpressionOnNonNumber(expression);
@@ -37,6 +38,11 @@ namespace HowToNotMakeACalc
             while(DoesListContainChar(splitExpression, '('))
             {
                 splitExpression = EvaluateBrackets(splitExpression);
+            }
+            splitExpression = RemoveEmptyStringInList(splitExpression);
+            while(DoesListContainChar(splitExpression, '*') || DoesListContainChar(splitExpression, '/'))
+            {
+
             }
             test(splitExpression);
 
@@ -91,8 +97,16 @@ namespace HowToNotMakeACalc
             return list;
         }
 
+        public List<String> RemoveEmptyStringInList(List<String> list)
+        {
 
-        //Does the operation inside the bracket or sqrt/power of, cba doing brackets inside of brackets, only works with one operation inside the bracket.
+            list = list.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+            return list;
+        }
+
+
+        //Does the operation inside the bracket, couldn't get it to work with exponentiation and didn't bother to make it work for multiple operations inside the bracket.
+        //if the input is a-(-b) it faka up too.
         public List<String> EvaluateBrackets(List<String> splitExpression)
         {
             for (var i = 0; i < splitExpression.Count - 1; i++)
@@ -131,16 +145,17 @@ namespace HowToNotMakeACalc
                                 {
                                     switch (splitExpression[i - 2])
                                     {
-                                        case "√":
-                                            var temp4 = sc_sqrt.Operation(Convert.ToDouble(splitExpression[i + 1]), (1 / 2));
-                                            RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 1, 3);
-                                            splitExpression.Insert(i, temp4.ToString());
-                                            return splitExpression;
-                                        case "^":
-                                            var temp5 = sc_expo.Operation(Convert.ToDouble(splitExpression[i - 2]), Convert.ToDouble(splitExpression[i + 1]));
-                                            RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 1, 3);
-                                            splitExpression.Insert(i, temp5.ToString());
-                                            return splitExpression;
+                                        //case "√":
+                                            //var temp4 = sc_sqrt.Operation(Convert.ToDouble(splitExpression[i + 1]), (1/2));
+                                            //MessageBox.Show(temp4.ToString() + "Hello");
+                                           // RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 2, 4);
+                                            //splitExpression.Insert(i, temp4.ToString());
+                                            //return splitExpression;
+                                        //case "^":
+                                           // var temp5 = sc_expo.Operation(Convert.ToDouble(splitExpression[i - 3]), Convert.ToDouble(splitExpression[i + 1]));
+                                         //   RemoveSetAmountOfElementsInListAtIndex(splitExpression, i - 3, 3);
+                                          //  splitExpression.Insert(i, temp5.ToString());
+                                          //  return splitExpression;
                                         case "+":
                                         case "-":
                                         case "/":
@@ -166,6 +181,17 @@ namespace HowToNotMakeACalc
                         }
                 }
             }
+
+            return splitExpression;
+        }
+
+
+
+
+        public List<String> EvaluateMultiplicationAndDivision(List<String> splitExpression)
+        {
+
+
 
             return splitExpression;
         }
@@ -251,7 +277,7 @@ namespace HowToNotMakeACalc
         {
             public override double Operation(double num1, double num2)
             {
-                return base.Operation(num1, (1 / 2));
+                return base.Operation(num1, num2);
             }
         }
 

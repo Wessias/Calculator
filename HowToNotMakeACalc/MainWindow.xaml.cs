@@ -51,7 +51,7 @@ namespace HowToNotMakeACalc
                     case "/":
                     case "*":
                     case "^":
-                    case "√(":
+                    case "√":
                     case ".":
                         TextField.Text += button.Content;
                         break;
