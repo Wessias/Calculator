@@ -108,11 +108,16 @@ namespace HowToNotMakeACalc
             return false;
         }
 
+
+
+
         public List<String> RemoveSetAmountOfElementsInListAtIndex(List<String> list, int startElement, int amountToRemove)
         {
             list.RemoveRange(startElement, amountToRemove);
             return list;
         }
+
+
 
         public List<String> RemoveEmptyStringInList(List<String> list)
         {
@@ -121,10 +126,21 @@ namespace HowToNotMakeACalc
             return list;
         }
 
+        //I know bracket doesnt fucking mean parenthesis but I couldnt be arsed writing parenthesis everytime and YES I realize I could just use the function to replace everywhere bracket is typed with parenthesis but now I've written this shit and refuse to do so. :)
 
         //Does the operation inside the bracket, couldn't get it to work with exponentiation and didn't bother to make it work for multiple operations inside the bracket.
         //if the input is a-(-b) or a+(+b) it faka up too. Works with multiple brackets as long as you don't multiply or divise those mofos. Can't multiply a bracket with a number either.
         //It is possible to take a bracket to the power of something correctly.
+
+        //Works by finding where a bracket starts then checking if a closing bracket is 2 spaces ahead in the list or if its 4 spaces ahead.
+        //If the closing bracket is two spaces ahead it means there is just a number inside the bracket like (a) if its 4 spaces ahead it means the bracket looks like (a+b) with random operation inside.
+        //At first it enters a switch case which operates on what is 2 steps ahead of the opening bracket, which is either an operation or a closing bracket.
+        //Then if it is an operator it does the calculation saves it in a variabel removes all of the elements used and inserts the calculated value at the same index as the opening bracket used to be. (Same as all the other evaluting shieet)
+        //If the switch operator is a closing bracket it then enters an if statement which is true if the element behind the opening bracket is empty "" for some reason
+        //when the original expression is split it leaves whitespace between the operator and bracket when the expression looks like a+(a) and I hadnt cared enough about it
+        //to make the method which removed elements which were whitespace or empty at this point. If its not empty and instead a digit to the left in the form of a(b)
+        //This is interpreted as a * b. If it is like mentioned an empty element behind the opening bracket and it looks like a+(b) it will simplify the expression to a+b.
+        //Was gonna make it so you could do sqrt(a), a^(b+c) and a^(b) but couldn't be bothered which is why some code is marked as a comment.
         public List<String> EvaluateBrackets(List<String> splitExpression)
         {
             for (var i = 0; i < splitExpression.Count - 1; i++)
@@ -203,6 +219,11 @@ namespace HowToNotMakeACalc
             return splitExpression;
         }
 
+
+        //Checks at which index the exponentiation or root operator is an element then does the operation with the help of the element beore and after. 
+        //In the case of sqrt it doesnt need the element before since I only allow the square root.
+        //Then it saves the calculated number in a variable and removes the operator sign, and the two (one in sqrt case) numbers used from the list.
+        //Proccedes to insert the calculated temp variable into the list at index one step before the operator.
         public List<String> EvaluateExponentiationAndRoots(List<String> splitExpression)
         {
             for (var i = 0; i < splitExpression.Count - 1; i++)
@@ -230,7 +251,9 @@ namespace HowToNotMakeACalc
             return splitExpression;
         }
 
-
+        //Finds the index the element matches the operator and then does the operation with the help of the elements before and after.
+        //Saves the calculation of the expression in a temp variabel and then removes all the elemnts that we're used to calculate it.
+        //Inserts the calculation one step before the index of the operator.
         public List<String> EvaluateMultiplicationAndDivision(List<String> splitExpression)
         {
             for (var i = 0; i < splitExpression.Count - 1; i++)
@@ -260,6 +283,7 @@ namespace HowToNotMakeACalc
             return splitExpression;
         }
 
+        //Does the same thing as the other evaluate methods except with addition and subtraction.
         public List<String> EvaluateAdditionAndSubtraction(List<String> splitExpression)
         {
             for (var i = 0; i < splitExpression.Count - 1; i++)
@@ -287,91 +311,80 @@ namespace HowToNotMakeACalc
 
         }
 
-
-
-        public void test(List<String> list)
-        {
-            foreach(string text in list)
-            {
-                MessageBox.Show(text);
-            }
-        }
-
-
-
+        //Uses a regular expression to split the expression whenever it matches the pattern and then converts it into a list of strings.
         public List<String> SplitExpressionOnNonNumber(string expression)
         {
-            //char[] charToSplitOn = { '/', '+', '*', '√', '(', '^', ')', '-' };
-            //Regex toSplitOn = new Regex(@"([*()\^\/\√]|[\+\-])");
+            //char[] charToSplitOn = { '/', '+', '*', '√', '(', '^', ')', '-' }; 
+            //Regex toSplitOn = new Regex(@"([*()\^\/\√]|[\+\-])");  <--- Regex is confusing as fuck but worth it lmao. 
             var splitExpression = Regex.Split(expression, @"([*()\^\/\√]|[\+\-])").ToList();
             return splitExpression;
         }
 
-
-
-
-
-
-
-
-
-
-
-        class Addition : Operator
-        {
-            public override double Operation(double num1, double num2)
-            {
-                var result = num1 + num2;
-                return result;
-
-            }
-
-        }
-
-        class Subtraction : Addition
-        {
-            public override double Operation(double num1, double num2)
-            {
-                return base.Operation(num1, -num2);
-            }
-        }
-
-        class Multiplication : Operator
-        {
-            public override double Operation(double num1, double num2)
-            {
-                var result = num1 * num2;
-                return result;
-            }
-
-        }
-
-        class Division : Multiplication
-        {
-            public override double Operation(double num1, double num2)
-            {
-                return base.Operation(num1, (1 / (num2)));
-            }
-        }
-
-        class Exponentiation : Operator
-        {
-            public override double Operation(double num1, double num2)
-            {
-                var result = Math.Pow(num1, num2);
-                return result;
-            }
-
-        }
-
-        class SquareRoot : Exponentiation
-        {
-            public override double Operation(double num1, double num2)
-            {
-                return base.Operation(num1, 1/num2);
-            }
-        }
+   
 
 
     }
+
+
+
+    class Addition : Operator
+    {
+        public override double Operation(double num1, double num2)
+        {
+            var result = num1 + num2;
+            return result;
+
+        }
+
+    }
+
+    class Subtraction : Addition
+    {
+        public override double Operation(double num1, double num2)
+        {
+            return base.Operation(num1, -num2);
+        }
+    }
+
+    class Multiplication : Operator
+    {
+        public override double Operation(double num1, double num2)
+        {
+            var result = num1 * num2;
+            return result;
+        }
+
+    }
+
+    class Division : Multiplication
+    {
+        public override double Operation(double num1, double num2)
+        {
+            return base.Operation(num1, (1 / (num2)));
+        }
+    }
+
+    class Exponentiation : Operator
+    {
+        public override double Operation(double num1, double num2)
+        {
+            var result = Math.Pow(num1, num2);
+            return result;
+        }
+
+    }
+
+    class SquareRoot : Exponentiation
+    {
+        public override double Operation(double num1, double num2)
+        {
+            return base.Operation(num1, 1 / num2);
+        }
+    }
+
+
+
+
+
+
 }
