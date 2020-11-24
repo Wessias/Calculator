@@ -29,7 +29,7 @@ namespace HowToNotMakeACalc
         //Checks if text is allowed with the help of a regular expression.
         public bool IsTextAllowed(string text)
         {
-            return sc_allowedInputs.IsMatch(text);
+            return !sc_allowedInputs.IsMatch(text);
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -38,7 +38,8 @@ namespace HowToNotMakeACalc
 
         //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //Dont enter only 1 kind of bracket it will fuck up. 
-        //Exponentiation doesnt work with brackets and will only do the exponentiation/sqrt on the number to the right of it no adding/subtracting and shiet like dat ;(
+        //Exponentiation doesnt work with brackets and will only do the exponentiation/sqrt on the number to the right of it, 
+        //no adding or subtracting (in base for sqrt and in power for exponentiation) and shiet like dat ;(
         public string EvaluateExpression(string expression)
         {
             var splitExpression = SplitExpressionOnNonNumber(expression);
@@ -230,6 +231,7 @@ namespace HowToNotMakeACalc
                                         case "+":
                                         case "-":
                                         case "/":
+                                        case "*":
                                             var temp6 = splitExpression[i + 1];
                                             RemoveSetAmountOfElementsInListAtIndex(splitExpression, i, 3);
                                             splitExpression.Insert(i, temp6);
