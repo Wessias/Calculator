@@ -5,46 +5,91 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HowToNotMakeACalc"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="500" Background="red">
+        Title="MainWindow" Height="480" Width="500">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Color="black" Offset="0.1" />
+                            <GradientStop Color="yellow" Offset="0.3" />
+                            <GradientStop Color="red" Offset="0.5" />
+                            <GradientStop Color="black" Offset="0.6" />
+                            <GradientStop Color="yellow" Offset="0.8" />
+                            <GradientStop Color="red" Offset="1" />
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Foreground" Value="BlanchedAlmond"/>
+            <Setter Property="Margin" Value="3, 3"/>
+            <Setter Property="FontSize" Value="25px"/>
+            <Setter Property="Opacity" Value="0.75"/>
+        </Style>
+
+    </Window.Resources>
+
+
     <Grid Height="430" VerticalAlignment="Top" Margin="10 10 ">
-        <TextBox x:Name="TextField" Text="" Foreground="GreenYellow" Grid.ColumnSpan="5" FontSize="30px" Background="yellow" Margin="1 5" TextChanged="OnChange"></TextBox>
+        <Rectangle Margin="-10, -10, -10, -24" Grid.RowSpan="6" Grid.ColumnSpan="5">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="red" Offset="0.14" />
+                    <GradientStop Color="orange" Offset="0.29" />
+                    <GradientStop Color="yellow" Offset="0.43" />
+                    <GradientStop Color="green" Offset="0.57" />
+                    <GradientStop Color="blue" Offset="0.71" />
+                    <GradientStop Color="indigo" Offset="0.86" />
+                    <GradientStop Color="violet" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <TextBox x:Name="TextField" Text="" Foreground="GreenYellow" Grid.ColumnSpan="5" FontSize="30px" Background="black" Margin="1 5" TextChanged="OnChange" Opacity="0.75"></TextBox>
+
+
+
+
 
         <!--Buttons Column 1-->
-        <Button   Grid.Column="0" Grid.Row="1" FontSize="25px" Foreground="Fuchsia" Background="Chartreuse" Margin="3 3" Click="Button_Click">1</Button>
-        <Button   Grid.Column="0" Grid.Row="2" FontSize="25px" Foreground="Fuchsia" Background="Chartreuse" Margin="3 3" Click="Button_Click">4</Button>
-        <Button   Grid.Column="0" Grid.Row="3" FontSize="25px" Foreground="Fuchsia" Background="Chartreuse" Margin="3 3" Click="Button_Click">7</Button>
-        <Button   Grid.Column="0" Grid.Row="4" FontSize="25px" Foreground="Fuchsia" Background="Chartreuse" Margin="3 3" Click="Button_Click">,</Button>
+        <Button   Grid.Column="0" Grid.Row="1" Click="Button_Click">1</Button>
+        <Button   Grid.Column="0" Grid.Row="2" Click="Button_Click">4</Button>
+        <Button   Grid.Column="0" Grid.Row="3" Click="Button_Click">7</Button>
+        <Button   Grid.Column="0" Grid.Row="4" Click="Button_Click">,</Button>
         
 
 
         <!--Buttons Column 2-->
-        <Button   Grid.Column="1" Grid.Row="1" FontSize="25px" Foreground="Chartreuse" Background="Fuchsia" Margin="3 3" Click="Button_Click">2</Button>
-        <Button   Grid.Column="1" Grid.Row="2" FontSize="25px" Foreground="Chartreuse" Background="Fuchsia" Margin="3 3" Click="Button_Click">5</Button>
-        <Button   Grid.Column="1" Grid.Row="3" FontSize="25px" Foreground="Chartreuse" Background="Fuchsia" Margin="3 3" Click="Button_Click">8</Button>
-        <Button   Grid.Column="1" Grid.Row="4" FontSize="25px" Foreground="Chartreuse" Background="Fuchsia" Margin="3 3" Click="Button_Click">0</Button>
+        <Button   Grid.Column="1" Grid.Row="1" Click="Button_Click">2</Button>
+        <Button   Grid.Column="1" Grid.Row="2" Click="Button_Click">5</Button>
+        <Button   Grid.Column="1" Grid.Row="3" Click="Button_Click">8</Button>
+        <Button   Grid.Column="1" Grid.Row="4" Click="Button_Click">0</Button>
 
         <!--Buttons Column 3-->
-        <Button   Grid.Column="2" Grid.Row="2" FontSize="25px" Foreground="Cyan" Background="BlanchedAlmond" Margin="3 3" Click="Button_Click">6</Button>
-        <Button   Grid.Column="2" Grid.Row="1" FontSize="25px" Foreground="Cyan" Background="BlanchedAlmond" Margin="3 3" Click="Button_Click">3</Button>
-        <Button   Grid.Column="2" Grid.Row="3" FontSize="25px" Foreground="Cyan" Background="BlanchedAlmond" Margin="3 3" Click="Button_Click">9</Button>
-        <Button   Grid.Column="2" Grid.Row="4" FontSize="25px" Foreground="Cyan" Background="BlanchedAlmond" Margin="3 3" Click="Button_Click">(</Button>
-        <Button   Grid.Column="1" Grid.Row="5" FontSize="25px" Foreground="Cyan" Background="BlanchedAlmond" Margin="3 3" Click="Button_Click" Grid.ColumnSpan="2">Clear</Button>
+        <Button   Grid.Column="2" Grid.Row="2" Click="Button_Click">6</Button>
+        <Button   Grid.Column="2" Grid.Row="1" Click="Button_Click">3</Button>
+        <Button   Grid.Column="2" Grid.Row="3" Click="Button_Click">9</Button>
+        <Button   Grid.Column="2" Grid.Row="4" Click="Button_Click">(</Button>
+        <Button   Grid.Column="1" Grid.Row="5" Click="Button_Click" Grid.ColumnSpan="2">Clear</Button>
 
         <!--Buttons Column 4-->
-        <Button   Grid.Column="3" Grid.Row="1" FontSize="25px" Foreground="BlanchedAlmond" Background="Cyan" Margin="3 3" Click="Button_Click">√</Button>
-        <Button   Grid.Column="3" Grid.Row="2" FontSize="25px" Foreground="BlanchedAlmond" Background="Cyan" Margin="3 3" Click="Button_Click">^</Button>
-        <Button   Grid.Column="3" Grid.Row="3" FontSize="25px" Foreground="BlanchedAlmond" Background="Cyan" Margin="3 3" Click="Button_Click">=</Button>
-        <Button   Grid.Column="3" Grid.Row="4" FontSize="25px" Foreground="BlanchedAlmond" Background="Cyan" Margin="3 3" Click="Button_Click">)</Button>
-        <Button   Grid.Column="0" Grid.Row="5" FontSize="25px" Foreground="Fuchsia" Background="Orange" Margin="3 3" Click="Button_Click">Del</Button>
+        <Button   Grid.Column="3" Grid.Row="1" Click="Button_Click">√</Button>
+        <Button   Grid.Column="3" Grid.Row="2" Click="Button_Click">^</Button>
+        <Button   Grid.Column="3" Grid.Row="3" Click="Button_Click">=</Button>
+        <Button   Grid.Column="3" Grid.Row="4" Click="Button_Click">)</Button>
+        <Button   Grid.Column="0" Grid.Row="5" Click="Button_Click">Del</Button>
 
         <!--Buttons Column 5-->
-        <Button   Grid.Column="3" Grid.Row="5" FontSize="25px" Foreground="Green" Background="Black" Margin="3 3" Click="Button_Click" Grid.ColumnSpan="2" x:Name="Exec">Exe</Button>
-        <Button   Grid.Column="4" Grid.Row="4" FontSize="25px" Foreground="Green" Background="Black" Margin="3 3" Click="Button_Click">-</Button>
-        <Button   Grid.Column="4" Grid.Row="3" FontSize="25px" Foreground="Green" Background="Black" Margin="3 3" Click="Button_Click">+</Button>
-        <Button   Grid.Column="4" Grid.Row="2" FontSize="25px" Foreground="Green" Background="Black" Margin="3 3" Click="Button_Click">/</Button>
-        <Button   Grid.Column="4" Grid.Row="1" FontSize="25px" Foreground="Green" Background="Black" Margin="3 3" Click="Button_Click">*</Button>
+        <Button   Grid.Column="3" Grid.Row="5"  Click="Button_Click" Grid.ColumnSpan="2" x:Name="Exec">Exe</Button>
+        <Button   Grid.Column="4" Grid.Row="4"  Click="Button_Click">-</Button>
+        <Button   Grid.Column="4" Grid.Row="3"  Click="Button_Click">+</Button>
+        <Button   Grid.Column="4" Grid.Row="2"  Click="Button_Click">/</Button>
+        <Button   Grid.Column="4" Grid.Row="1"  Click="Button_Click">*</Button>
 
-
+        
 
 
         <Grid.RowDefinitions>
